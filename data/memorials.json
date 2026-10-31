@@ -1,0 +1,39 @@
+[
+  {
+    "id": "abuelita-elena",
+    "name": "Abuelita Elena Morales",
+    "relation": "Grandmother & Matriarch",
+    "years": "1938 — 2021",
+    "photo": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    "bio": "Elena's kitchen was the heart of Oaxaca. She could tell a person's fortune by how they stirred hot chocolate, and her mole negro recipe took three days of gentle simmering, stories, and laughter.",
+    "offerings": [
+      {
+        "type": "food",
+        "name": "Mole Negro & Pan de Muerto",
+        "icon": "🍞"
+      },
+      {
+        "type": "drink",
+        "name": "Spiced Hot Chocolate with Cinnamon",
+        "icon": "☕"
+      },
+      {
+        "type": "music",
+        "name": "Cielito Lindo on acoustic guitar",
+        "icon": "🎶"
+      },
+      {
+        "type": "keepsake",
+        "name": "Hand-embroidered floral shawl",
+        "icon": "🧣"
+      },
+      {
+        "type": "cempasuchil",
+        "name": "Fresh Marigold Cross",
+        "icon": "🌼"
+      }
+    ],
+    "calaverita": "La Muerte buscaba a Elena entre cazuelas de barro,\nmas el aroma a mole la detuvo de un garro.\n'Cocina un plato más, querida doña Elena,\ny celebraremos juntos la vida que fue tan plena.'",
+    "remembrance": "We remember her infectious laugh when the flour spilled, her warm hands holding ours during autumn storms, and the unconditional kindness she poured into every visitor who stepped across her threshold. Elena taught us that love is something you cook, share, and preserve."
+  }
+]

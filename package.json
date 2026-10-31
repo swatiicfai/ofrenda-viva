@@ -1,0 +1,22 @@
+{
+  "name": "ofrenda-viva",
+  "version": "1.0.0",
+  "description": "An open-weight AI memorial altar for Día de los Muertos, powered by Gemma and local-first privacy.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "gemma",
+    "open-source-ai",
+    "dia-de-los-muertos",
+    "hacktoberfest",
+    "devchallenge",
+    "elevenlabs",
+    "memorial"
+  ],
+  "author": "Swati (Hacktoberfest 2026 AI Builder)",
+  "license": "MIT"
+}

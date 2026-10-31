@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofrenda Viva | Living Altar — Open AI Día de los Muertos Sanctuary</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="text-stone-100 flex flex-col min-h-screen">
+
+  <!-- Falling Marigold (Cempasúchil) Petals Animation Canvas -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- Papel Picado Garland -->
+  <div class="papel-garland py-2 border-b border-orange-950/40 bg-black/30 backdrop-blur-sm">
+    <div class="papel-flag bg-fuchsia-600">💀</div>
+    <div class="papel-flag bg-amber-500">🌼</div>
+    <div class="papel-flag bg-cyan-500">🕯️</div>
+    <div class="papel-flag bg-emerald-600">🍞</div>
+    <div class="papel-flag bg-rose-600">🎶</div>
+    <div class="papel-flag bg-purple-600">🕊️</div>
+    <div class="papel-flag bg-yellow-500">💀</div>
+    <div class="papel-flag bg-teal-500">🌼</div>
+    <div class="papel-flag bg-orange-600">🕯️</div>
+    <div class="papel-flag bg-pink-500">✨</div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="relative z-20 px-6 py-6 border-b border-amber-500/20 bg-slate-950/60 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="text-3xl filter drop-shadow-[0_0_12px_#FF9F1C]">🕯️</div>
+        <div>
+          <h1 class="font-cinzel text-2xl md:text-3xl font-bold tracking-wider text-amber-400">OFRENDA VIVA</h1>
+          <p class="text-xs text-amber-200/70 font-mono tracking-wider">A GHOST IN THE MACHINE MEMORIAL SANCTUARY</p>
+        </div>
+      </div>
+
+      <!-- Live Open-AI Status Pill & Badges -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div id="ai-status-badge" class="px-3 py-1.5 rounded-full text-xs font-mono bg-amber-950/70 text-amber-300 border border-amber-600/50 flex items-center gap-2 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>Engine: <b id="model-name-label">Gemma Open Model</b></span>
+        </div>
+        <button id="btn-export-vault" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-stone-900 hover:bg-stone-800 text-stone-200 border border-stone-700 hover:border-amber-500 flex items-center gap-1.5 transition">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Export Private Vault</span>
+        </button>
+        <button id="btn-new-altar" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-stone-950 shadow-md shadow-orange-950/50 flex items-center gap-1.5 transition">
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+          <span>Build Ofrenda</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Narrative Introduction -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-8 relative z-20 space-y-10">
+
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <span class="text-xs uppercase tracking-[0.25em] text-orange-400 font-mono">Día de los Muertos &bull; Nov 1-2 &bull; Hacktoberfest 2026</span>
+      <h2 class="font-playfair text-3xl md:text-5xl font-bold text-amber-200 tracking-tight leading-tight">
+        When the Veil Thins, Memories Live Forever.
+      </h2>
+      <p class="text-stone-300 text-sm md:text-base font-light leading-relaxed">
+        Personal grief and ancestral memory are too sacred to be locked behind proprietary cloud paywalls or fed into commercial surveillance models.
+        <strong class="text-amber-300 font-medium">Ofrenda Viva</strong> runs on <span class="underline decoration-amber-500/60 underline-offset-4 font-mono text-amber-200">open-weight AI (Gemma)</span> to generate heartfelt Calaveritas Literarias, weave spoken remembrances, and preserve family legacies in a private, 100% local sanctuary.
+      </p>
+    </div>
+
+    <!-- Active Altar Profile Showcase -->
+    <section class="altar-container">
+
+      <!-- Altar Profile Switcher / Tabs -->
+      <div class="flex items-center justify-between pb-3 border-b border-amber-500/20 mb-6">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-amber-400/80 font-mono uppercase tracking-wider">Sanctuary of:</span>
+          <select id="memorial-select" class="bg-stone-900 border border-amber-500/40 text-amber-200 text-sm rounded-lg px-3 py-1 font-playfair focus:outline-none focus:border-amber-400">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 100% Private Offline Storage
+        </div>
+      </div>
+
+      <!-- 3-Tier Visual Altar -->
+      <div class="space-y-6">
+
+        <!-- Tier 1: The Heavens & Portrait (Top Level) -->
+        <div class="altar-tier p-6 md:p-8 flex flex-col md:flex-row items-center justify-around gap-6 text-center md:text-left">
+          
+          <!-- Left Candle -->
+          <div class="candle-wrapper" onclick="toggleCandle(this)">
+            <div class="candle-flame"></div>
+            <div class="candle-wick"></div>
+            <div class="candle-body"></div>
+            <span class="text-[10px] text-amber-200/60 mt-1">Light</span>
+          </div>
+
+          <!-- Framed Portrait -->
+          <div class="relative group">
+            <div class="absolute -inset-1.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl blur opacity-70 group-hover:opacity-100 transition duration-500"></div>
+            <div class="relative bg-stone-900 p-2 rounded-2xl border-2 border-amber-400/80 shadow-2xl">
+              <img id="altar-photo" src="" alt="Portrait of loved one" class="w-48 h-48 md:w-56 md:h-56 object-cover rounded-xl shadow-inner">
+              <div class="absolute bottom-3 left-3 right-3 bg-black/75 backdrop-blur-sm py-1.5 px-3 rounded-lg border border-amber-500/30 text-center">
+                <span id="altar-years" class="text-xs font-mono text-amber-300">1938 — 2021</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biographical Lore & Remembrance -->
+          <div class="max-w-md space-y-3">
+            <div class="flex items-center justify-center md:justify-start gap-2">
+              <span class="text-amber-500 text-lg">🌼</span>
+              <h3 id="altar-name" class="font-playfair text-2xl md:text-3xl font-bold text-amber-100">Abuelita Elena Morales</h3>
+            </div>
+            <p id="altar-relation" class="text-xs uppercase font-mono tracking-widest text-orange-400">Grandmother & Matriarch</p>
+            <p id="altar-bio" class="text-stone-300 text-sm font-light leading-relaxed italic">
+              "Elena's kitchen was the heart of Oaxaca. Her mole negro recipe took three days of gentle simmering, stories, and laughter."
+            </p>
+            <div class="pt-2 flex flex-wrap gap-2 justify-center md:justify-start">
+              <button onclick="openGenerateModal('calaverita')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/50 flex items-center gap-1.5 transition">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                <span>Weave Calaverita Poem</span>
+              </button>
+              <button onclick="openGenerateModal('remembrance')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-600/20 hover:bg-orange-600/30 text-orange-300 border border-orange-500/50 flex items-center gap-1.5 transition">
+                <i data-lucide="feather" class="w-3.5 h-3.5"></i>
+                <span>Chronicle Eulogy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Candle -->
+          <div class="candle-wrapper" onclick="toggleCandle(this)">
+            <div class="candle-flame"></div>
+            <div class="candle-wick"></div>
+            <div class="candle-body"></div>
+            <span class="text-[10px] text-amber-200/60 mt-1">Light</span>
+          </div>
+        </div>
+
+        <!-- Tier 2: The Offerings (Middle Level) -->
+        <div class="altar-tier p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400">🍞</span>
+              <h4 class="font-cinzel text-sm font-semibold tracking-wider text-amber-200 uppercase">Tier II: Favorite Offerings (Ofrendas)</h4>
+            </div>
+            <button onclick="addQuickOffering()" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Offering
+            </button>
+          </div>
+
+          <!-- Offerings Flex Grid -->
+          <div id="offerings-container" class="flex flex-wrap gap-2.5 pt-1">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Tier 3: The Earth & The Spirits (Bottom Level - Poems & Voices) -->
+        <div class="altar-tier p-6 md:p-8 space-y-6">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-amber-500/20 pb-3">
+            <div>
+              <h4 class="font-cinzel text-sm font-semibold tracking-wider text-amber-200 uppercase">Tier III: The Voices of the Spirit</h4>
+              <p class="text-xs text-stone-400">Oral history, AI Calaveritas, and audio whisper narration</p>
+            </div>
+
+            <!-- Voice Tribute Narration Bar -->
+            <div class="flex items-center gap-2 bg-stone-900/90 px-3 py-1.5 rounded-xl border border-amber-500/30">
+              <button id="btn-play-voice" onclick="playVoiceTribute()" class="p-2 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 transition">
+                <i id="play-icon" data-lucide="volume-2" class="w-4 h-4"></i>
+              </button>
+              <div class="text-xs">
+                <div class="text-amber-200 font-medium">Whispers of the Altar</div>
+                <div class="text-[10px] text-stone-400 font-mono">Candlelight Narration Engine</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calaverita & Remembrance Display Card -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Calaverita Column -->
+            <div class="glass-panel p-5 relative space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                <span class="text-xs font-mono uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                  <span class="text-base">💀</span> Calaverita Literaria
+                </span>
+                <span class="text-[10px] text-stone-400 font-mono bg-stone-800 px-2 py-0.5 rounded">Gemma 2 Verses</span>
+              </div>
+              <div id="display-calaverita" class="text-xs md:text-sm font-serif italic text-amber-100 whitespace-pre-line leading-relaxed pl-3 border-l-2 border-amber-500/40">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Remembrance Column -->
+            <div class="glass-panel p-5 relative space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                <span class="text-xs font-mono uppercase tracking-wider text-orange-400 flex items-center gap-1.5">
+                  <span class="text-base">🕯️</span> Living Memory & Blessing
+                </span>
+                <span class="text-[10px] text-stone-400 font-mono bg-stone-800 px-2 py-0.5 rounded">Tribute Chronicle</span>
+              </div>
+              <div id="display-remembrance" class="text-xs md:text-sm text-stone-200 whitespace-pre-line leading-relaxed">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Hackathon & Open Source Manifesto Section -->
+    <section class="glass-panel p-6 md:p-8 space-y-4 border border-amber-500/30">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">⚡</span>
+        <h3 class="font-cinzel text-lg md:text-xl font-bold text-amber-300">Why Open Innovation Matters for Ofrenda Viva</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs md:text-sm text-stone-300">
+        <div class="p-4 rounded-xl bg-black/40 border border-stone-800 space-y-2">
+          <div class="text-amber-400 font-bold flex items-center gap-1.5 font-mono">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> Sacred Privacy of Grief
+          </div>
+          <p class="leading-relaxed text-stone-400">
+            Photos, letters, and voice memories of departed family members must never be indexed for ad targeting or used to train corporate cloud models. Open weights mean data never leaves your device.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-black/40 border border-stone-800 space-y-2">
+          <div class="text-amber-400 font-bold flex items-center gap-1.5 font-mono">
+            <i data-lucide="infinity" class="w-4 h-4"></i> Digital Immortality Without Paywalls
+          </div>
+          <p class="leading-relaxed text-stone-400">
+            A digital memorial should not disappear when a SaaS startup pivots or a credit card expires. Running open models locally guarantees that the ofrenda lives on your personal hardware forever.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-black/40 border border-stone-800 space-y-2">
+          <div class="text-amber-400 font-bold flex items-center gap-1.5 font-mono">
+            <i data-lucide="cpu" class="w-4 h-4"></i> Gemma & Open Harness Power
+          </div>
+          <p class="leading-relaxed text-stone-400">
+            Google's Gemma open weights deliver frontier-grade poetic nuance and cultural resonance right on commodity consumer laptops with zero API costs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal: Build New Ofrenda -->
+  <div id="modal-new-altar" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-lg w-full p-6 border border-amber-500/50 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-amber-500/20 pb-3">
+        <h3 class="font-cinzel text-lg font-bold text-amber-200 flex items-center gap-2">
+          <span>🕯️</span> Erect an Ofrenda
+        </h3>
+        <button onclick="closeModal('modal-new-altar')" class="text-stone-400 hover:text-white">✕</button>
+      </div>
+
+      <form id="form-new-memorial" class="space-y-4 text-xs md:text-sm">
+        <div>
+          <label class="block text-amber-300 font-mono text-xs uppercase mb-1">Name of Loved One</label>
+          <input id="input-name" type="text" required placeholder="e.g. Mateo Rodriguez" class="w-full bg-stone-900 border border-stone-700 focus:border-amber-400 rounded-lg p-2.5 text-stone-100">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-amber-300 font-mono text-xs uppercase mb-1">Relationship</label>
+            <input id="input-relation" type="text" placeholder="e.g. Grandfather / Mentor" class="w-full bg-stone-900 border border-stone-700 focus:border-amber-400 rounded-lg p-2.5 text-stone-100">
+          </div>
+          <div>
+            <label class="block text-amber-300 font-mono text-xs uppercase mb-1">Years (Life Span)</label>
+            <input id="input-years" type="text" placeholder="e.g. 1942 — 2019" class="w-full bg-stone-900 border border-stone-700 focus:border-amber-400 rounded-lg p-2.5 text-stone-100">
+          </div>
+        </div>
+        <div>
+          <label class="block text-amber-300 font-mono text-xs uppercase mb-1">Portrait Image URL</label>
+          <input id="input-photo" type="url" placeholder="https://..." class="w-full bg-stone-900 border border-stone-700 focus:border-amber-400 rounded-lg p-2.5 text-stone-100">
+        </div>
+        <div>
+          <label class="block text-amber-300 font-mono text-xs uppercase mb-1">Cherished Memories & Traits</label>
+          <textarea id="input-bio" rows="3" placeholder="What made their laugh special? What stories did they tell?" class="w-full bg-stone-900 border border-stone-700 focus:border-amber-400 rounded-lg p-2.5 text-stone-100"></textarea>
+        </div>
+        <div>
+          <label class="block text-amber-300 font-mono text-xs uppercase mb-1">Their Favorite Offerings (comma-separated)</label>
+          <input id="input-offerings" type="text" placeholder="Pan dulce, black coffee, jazz records, orange marigolds" class="w-full bg-stone-900 border border-stone-700 focus:border-amber-400 rounded-lg p-2.5 text-stone-100">
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeModal('modal-new-altar')" class="px-4 py-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 font-semibold text-stone-950">Place on Altar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: AI Generation with Gemma -->
+  <div id="modal-ai-generate" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel max-w-xl w-full p-6 border border-amber-500/50 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-amber-500/20 pb-3">
+        <h3 id="ai-modal-title" class="font-cinzel text-lg font-bold text-amber-200 flex items-center gap-2">
+          <span>✨</span> Weave Tribute with Gemma AI
+        </h3>
+        <button onclick="closeModal('modal-ai-generate')" class="text-stone-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs md:text-sm">
+        <p class="text-stone-300 font-light">
+          Gemma open-weight AI crafts personalized verses and memorials honoring your loved one without transmitting private details to third-party ad networks.
+        </p>
+
+        <div id="ai-loading" class="hidden py-8 text-center space-y-3">
+          <div class="inline-block w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-amber-300 font-mono text-xs">Gemma is communing with memory & tradition...</p>
+        </div>
+
+        <div id="ai-result-container" class="space-y-3">
+          <textarea id="ai-generated-text" rows="8" class="w-full bg-stone-900/90 border border-amber-500/40 rounded-xl p-3 text-stone-100 font-serif leading-relaxed text-xs md:text-sm"></textarea>
+          <div class="flex justify-between items-center text-[11px] text-amber-200/70 font-mono">
+            <span id="ai-source-badge">Engine: Gemma 2</span>
+            <span>You can edit the text before applying</span>
+          </div>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeModal('modal-ai-generate')" class="px-4 py-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300">Close</button>
+          <button type="button" onclick="applyGeneratedText()" class="px-5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 font-semibold text-stone-950">Save to Altar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="relative z-20 py-6 border-t border-amber-500/20 bg-slate-950/80 text-center text-xs text-stone-400 space-y-2">
+    <p>Built for the <strong class="text-amber-300">DEV Hacktoberfest 2026: Ghost in the Machine Challenge</strong> &bull; #devchallenge #hf26challenge</p>
+    <p class="font-mono text-[11px] text-stone-500">Honoring the tradition of Día de los Muertos through Open Innovation & Local-First AI</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

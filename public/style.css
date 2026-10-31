@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600&display=swap');
+
+:root {
+  --marigold: #FF9F1C;
+  --marigold-gold: #FFBF00;
+  --marigold-deep: #E85D04;
+  --candle-glow: rgba(255, 170, 0, 0.45);
+  --copal-violet: #2D006B;
+  --midnight: #0A0814;
+  --altar-wood: #1F1524;
+  --papel-pink: #FF007F;
+  --papel-cyan: #00E5FF;
+  --papel-orange: #FF5400;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--midnight);
+  color: #F8F5EE;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 50% 10%, rgba(232, 93, 4, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 15% 85%, rgba(45, 0, 107, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(255, 0, 127, 0.1) 0%, transparent 50%);
+}
+
+/* Falling Petals Canvas */
+#petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Papel Picado Garland */
+.papel-garland {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  overflow: hidden;
+  padding: 0 10px;
+  position: relative;
+  z-index: 5;
+}
+
+.papel-flag {
+  width: 60px;
+  height: 48px;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  animation: sway 3.5s ease-in-out infinite alternate;
+  transform-origin: top center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.papel-flag:nth-child(even) {
+  animation-duration: 4.2s;
+  animation-delay: 0.5s;
+}
+
+@keyframes sway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+/* Typography */
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Altar Structure */
+.altar-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 20;
+}
+
+.altar-tier {
+  background: linear-gradient(180deg, rgba(38, 20, 48, 0.95) 0%, rgba(20, 12, 28, 0.98) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 159, 28, 0.25);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 25px var(--candle-glow);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.altar-tier:hover {
+  border-color: rgba(255, 191, 0, 0.5);
+}
+
+/* Realistic Candle Element */
+.candle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.candle-flame {
+  width: 14px;
+  height: 24px;
+  background: radial-gradient(ellipse at bottom, #FFFFFF 0%, #FFD60A 35%, #FF7B00 70%, transparent 95%);
+  border-radius: 50% 50% 35% 35%;
+  animation: flicker 1.8s infinite alternate ease-in-out;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 8px #FFB703) drop-shadow(0 0 18px #FB8500);
+}
+
+.candle-flame.extinguished {
+  display: none;
+}
+
+.candle-wick {
+  width: 2px;
+  height: 6px;
+  background-color: #333;
+}
+
+.candle-body {
+  width: 20px;
+  height: 42px;
+  background: linear-gradient(90deg, #FDF0D5 0%, #FFF8E7 40%, #E8D5B5 100%);
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.2);
+}
+
+@keyframes flicker {
+  0% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
+  25% { transform: scale(1.08, 0.95) rotate(2deg); opacity: 1; }
+  50% { transform: scale(0.92, 1.05) rotate(-2deg); opacity: 0.9; }
+  75% { transform: scale(1.04, 0.98) rotate(1deg); opacity: 1; }
+  100% { transform: scale(0.97, 1.02) rotate(-1deg); opacity: 0.92; }
+}
+
+/* Offering Tag / Pill */
+.offering-pill {
+  background: rgba(255, 159, 28, 0.12);
+  border: 1px solid rgba(255, 159, 28, 0.35);
+  color: #FFE6A7;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.offering-pill:hover {
+  background: rgba(255, 159, 28, 0.25);
+  transform: translateY(-2px);
+  border-color: var(--marigold-gold);
+}
+
+/* Glass Card */
+.glass-panel {
+  background: rgba(19, 14, 28, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 159, 28, 0.2);
+  border-radius: 14px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0814;
+}
+::-webkit-scrollbar-thumb {
+  background: #43281C;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--marigold);
+}
