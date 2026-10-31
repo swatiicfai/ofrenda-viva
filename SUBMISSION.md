@@ -110,7 +110,7 @@ You can run Ofrenda Viva locally in under 30 seconds:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/ofrenda-viva.git
+git clone https://github.com/swatiicfai/ofrenda-viva.git
 cd ofrenda-viva
 
 # 2. Launch the altar (Zero npm dependencies needed!)
