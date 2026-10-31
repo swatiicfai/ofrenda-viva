@@ -2,7 +2,9 @@
 > **A Día de los Muertos Memorial Sanctuary Powered by Open-Source AI (Gemma 2)**  
 > *Built for the DEV Hacktoberfest 2026: Ghost in the Machine Challenge* (`#devchallenge`, `#hf26challenge`)
 
-![Día de los Muertos Theme](https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80)
+![Ofrenda Viva Live Altar](./public/screenshot.png)
+
+*Live screenshot of the interactive 3-tier altar running on local-first Gemma AI.*
 
 ---
 

@@ -78,29 +78,9 @@ graph TD
 
 ### 📸 The Altar in Action
 
-Here is what the three-tier altar looks like in celebration:
+![Ofrenda Viva Live Altar Interface](https://raw.githubusercontent.com/swatiicfai/ofrenda-viva/main/public/screenshot.png)
 
-```
-+-------------------------------------------------------------+
-|  [Papel Picado]  💀  🌼  🕯️  🍞  🎶  🕊️  💀  🌼  🕯️  ✨   |
-+-------------------------------------------------------------+
-|  OFRENDA VIVA: A Ghost in the Machine Memorial Sanctuary   |
-|  [Status: Gemma Open Model Active]   [Export Private Vault] |
-+-------------------------------------------------------------+
-|                                                             |
-|   🕯️ (Beeswax)    [ 🖼️ Portrait: Abuelita Elena ]    🕯️    |
-|                          1938 — 2021                        |
-|                                                             |
-|   TIER II: Favorite Offerings                               |
-|   [🍞 Mole Negro] [☕ Spiced Chocolate] [🎶 Cielito Lindo]  |
-|                                                             |
-|   TIER III: Voices of the Spirit                            |
-|   💀 Calaverita Literaria:        🕯️ Living Memory:        |
-|   "La Muerte buscaba a Elena     "Tonight the veil thins... |
-|    entre cazuelas de barro..."    Welcome home to the scent |
-|                                   of marigold and copal."   |
-+-------------------------------------------------------------+
-```
+*Live screenshot of the interactive 3-tier altar with flickering beeswax candles, falling marigold petals, and Gemma 2 AI integration.*
 
 ---
 
